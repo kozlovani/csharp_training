@@ -58,6 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="tests\TestSuitFixture.cs" />
     <Compile Include="tests\contacts\ContactModificationTests.cs" />
     <Compile Include="tests\contacts\ContactRemovalTests.cs" />
     <Compile Include="tests\groups\GroupModificationTests.cs" />

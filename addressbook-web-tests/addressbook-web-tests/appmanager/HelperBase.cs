@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
@@ -12,6 +13,24 @@ namespace WebAddressbookTests
         {
             this.manager = manager;
             this.driver = manager.Driver;
+        }
+
+        public void Type(By locator, string text)
+        {
+            if (text != null)
+            {
+                driver.FindElement(locator).Clear();
+                driver.FindElement(locator).SendKeys(text);
+            }
+            
+        }
+
+        public void Select(By locator, string text)
+        {
+            if (text != null)
+            {
+                new SelectElement(driver.FindElement(locator)).SelectByText(text);
+            }
         }
     }
 }
