@@ -16,7 +16,9 @@ namespace WebAddressbookTests
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
 
-        public ApplicationManager()
+        private static ApplicationManager instance;
+
+        private ApplicationManager()
         {
             Start();
             baseURL = "http://localhost:8080/";
@@ -24,6 +26,14 @@ namespace WebAddressbookTests
             navigator = new NavigationHelper(this, baseURL);
             groupHelper = new GroupHelper(this);
             contactHelper = new ContactHelper(this);
+        }
+
+        public static ApplicationManager GetInstance()
+        {
+            if (instance == null) {
+                instance = new ApplicationManager();
+            }
+            return instance;
         }
 
         private void Start()
