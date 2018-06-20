@@ -17,7 +17,7 @@ namespace WebAddressbookTests
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
 
-        private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>;
+        private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
         private ApplicationManager()
         {
@@ -43,7 +43,7 @@ namespace WebAddressbookTests
 
         public static ApplicationManager GetInstance()
         {
-            if (app.IsValueCreated) {
+            if (! app.IsValueCreated) {
                 ApplicationManager newInstance = new ApplicationManager();
                 newInstance.Navigator.GoToHomePage();
                 app.Value = newInstance;
