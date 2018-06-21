@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using System;
 
 namespace WebAddressbookTests
 {
@@ -17,10 +18,18 @@ namespace WebAddressbookTests
             ReturnToHomePage();
             return this;
         }
-        public ContactHelper Select(int i)
+        public ContactHelper Select(int index)
         {
             manager.Navigator.GoToHomePage();
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + i + "]")).Click();
+            var count = Convert.ToInt32(driver.FindElement(By.Id("search_count")).Text);
+            if (count < index)
+            {
+                for (int i = count; i < index; i++)
+                {
+                    Create(new ContactData("", ""));
+                }
+            };
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
             return this;
         }
 

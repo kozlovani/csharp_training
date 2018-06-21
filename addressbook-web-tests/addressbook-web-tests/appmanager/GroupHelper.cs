@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using OpenQA.Selenium;
 
 namespace WebAddressbookTests
@@ -86,6 +87,14 @@ namespace WebAddressbookTests
 
         public GroupHelper SelectGroup(int index)
         {
+            var count = driver.FindElements(By.XPath("(//input[@name='selected[]'])")).Count();
+            if (count < index)
+            {
+                for (int i = count; i < index; i++)
+                {
+                    Create(new GroupData(""));
+                }
+            };
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
             return this;
         }

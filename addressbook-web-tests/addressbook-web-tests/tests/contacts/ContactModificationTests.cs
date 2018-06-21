@@ -10,7 +10,7 @@ namespace WebAddressbookTests
         {
             ContactData newData = new ContactData("Update FirstName", "Update LastName");
             newData.MiddleName = "Update MiddleName";
-            app.Contacts.Modify(1, newData);
+            app.Contacts.Modify(5, newData);
         }
     }
 }
