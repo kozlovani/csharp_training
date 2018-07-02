@@ -187,5 +187,26 @@ namespace WebAddressbookTests
             get { return notes; }
             set { notes = value; }
         }
+
+        public bool Compare(ContactData contact)
+        {
+            if ((this == null &&
+                contact == null) ||
+                (this != null && 
+                contact != null && 
+                this.FirstName == contact.FirstName &&
+                this.LastName == contact.LastName
+                /*this.Address == contact.Address &&
+                this.Email == contact.Email &&
+                this.Email2 == contact.Email2 &&
+                this.Email3 == contact.Email3 &&
+                this.Home == contact.Home &&
+                this.Mobile == contact.Mobile &&
+                this.Work == contact.Work &&
+                this.Phone2 == contact.Phone2*/
+                ))
+                { return true; }
+            return false;
+        }
     }
 }

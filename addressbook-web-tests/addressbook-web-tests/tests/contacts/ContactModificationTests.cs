@@ -8,9 +8,21 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModificationTest()
         {
+            
+            
+            //preparate
+            int index = 5;
+            app.Contacts.CreateByIndex(index);
+            Assert.IsTrue(app.Contacts.CheckByIndex(index));
+
+            //action
             ContactData newData = new ContactData("Update FirstName", "Update LastName");
             newData.MiddleName = "Update MiddleName";
-            app.Contacts.Modify(5, newData);
+            app.Contacts.Modify(index, newData);
+
+            //varification
+            Assert.IsTrue(app.Contacts.GetByIndex(index).Compare(newData));
+
         }
     }
 }

@@ -18,10 +18,24 @@ namespace WebAddressbookTests
             ReturnToHomePage();
             return this;
         }
-        public ContactHelper Select(int index)
+
+        public int GetCount()
         {
             manager.Navigator.GoToHomePage();
-            var count = Convert.ToInt32(driver.FindElement(By.Id("search_count")).Text);
+            return Convert.ToInt32(driver.FindElement(By.Id("search_count")).Text);
+        }
+        public bool CheckByIndex(int index)
+        {
+            var count = GetCount();
+            if (count >= index)
+                return true;
+            else
+                return false;
+        }
+
+        public ContactHelper CreateByIndex(int index)
+        {
+            var count = GetCount();
             if (count < index)
             {
                 for (int i = count; i < index; i++)
@@ -29,6 +43,18 @@ namespace WebAddressbookTests
                     Create(new ContactData("", ""));
                 }
             };
+            return this;
+        }
+        public ContactData GetByIndex(int index)
+        {
+            ContactData contact = null;
+            if (CheckByIndex(index)) contact = new ContactData(driver.FindElement(By.XPath("//table//tr[" + index + "+1]/td[3]")).Text, driver.FindElement(By.XPath("//table//tr[" + index + "+1]/td[2]")).Text);
+            return contact;
+        }
+
+        public ContactHelper Select(int index)
+        {
+            manager.Navigator.GoToHomePage();
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
             return this;
         }
