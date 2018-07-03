@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+using System.Collections.Generic;
 using System;
 
 namespace WebAddressbookTests
@@ -19,37 +19,17 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public int GetCount()
+        public List<ContactData> GetContactList()
         {
             manager.Navigator.GoToHomePage();
-            return Convert.ToInt32(driver.FindElement(By.Id("search_count")).Text);
-        }
-        public bool CheckByIndex(int index)
-        {
-            var count = GetCount();
-            if (count >= index)
-                return true;
-            else
-                return false;
-        }
-
-        public ContactHelper CreateByIndex(int index)
-        {
-            var count = GetCount();
-            if (count < index)
+            List<ContactData> contacts = new List<ContactData>();
+            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
+            for (int i=0; i< elements.Count; i++)
             {
-                for (int i = count; i < index; i++)
-                {
-                    Create(new ContactData("", ""));
-                }
-            };
-            return this;
-        }
-        public ContactData GetByIndex(int index)
-        {
-            ContactData contact = null;
-            if (CheckByIndex(index)) contact = new ContactData(driver.FindElement(By.XPath("//table//tr[" + index + "+1]/td[3]")).Text, driver.FindElement(By.XPath("//table//tr[" + index + "+1]/td[2]")).Text);
-            return contact;
+                contacts.Add(new ContactData(driver.FindElements(By.XPath("//tr[@name='entry']/td[3]"))[i].Text, driver.FindElements(By.XPath("//tr[@name='entry']/td[2]"))[i].Text));
+                i++;    
+            }
+            return contacts;
         }
 
         public ContactHelper Select(int index)

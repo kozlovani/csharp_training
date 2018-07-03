@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace WebAddressbookTests
 {
@@ -8,17 +9,18 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemovalTest()
         {
-            
+
             //preparate
-            int index = 7;
-            app.Contacts.CreateByIndex(index);
-            Assert.IsTrue(app.Contacts.CheckByIndex(index), "The contact has not been created");
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            if (oldContacts.Count == 0)
+            {
+                app.Contacts.Create(new ContactData("", ""));
+            }
 
             //action
-            app.Contacts.Remove(index);
+            app.Contacts.Remove(1);
 
             //varification
-            //Assert.IsTrue(app.Contacts.GetCount() == (index-1), "The contact has not been removed");
         }
 
     }

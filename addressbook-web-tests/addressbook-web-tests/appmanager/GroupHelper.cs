@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Collections.Generic;
 using OpenQA.Selenium;
 
 namespace WebAddressbookTests
@@ -52,37 +51,17 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public int GetCount()
+
+        public List<GroupData> GetGroupList()
         {
             manager.Navigator.GoToGroupsPage();
-            return driver.FindElements(By.Name("selected[]")).Count();
-        }
-        public bool CheckByIndex(int index)
-        {
-            var count = GetCount();
-            if (count >= index)
-                return true;
-            else
-                return false;
-        }
-
-        public GroupHelper CreateByIndex(int index)
-        {
-            var count = GetCount();
-            if (count < index)
+            List<GroupData> groups = new List<GroupData>();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+            foreach (IWebElement element in elements)
             {
-                for (int i = count; i < index; i++)
-                {
-                    Create(new GroupData(""));
-                }
-            };
-            return this;
-        }
-        public GroupData GetByIndex(int index)
-        {
-            GroupData group = null;
-            if (CheckByIndex(index)) group = new GroupData(driver.FindElement(By.XPath("//*[@id='content']/form/span["+index+"]")).Text);
-            return group;
+                groups.Add(new GroupData(element.Text));
+            }
+            return groups;
         }
 
         public GroupHelper ReturnToGroupsPage()
@@ -120,14 +99,6 @@ namespace WebAddressbookTests
 
         public GroupHelper SelectGroup(int index)
         {
-            var count = driver.FindElements(By.XPath("(//input[@name='selected[]'])")).Count();
-            if (count < index)
-            {
-                for (int i = count; i < index; i++)
-                {
-                    Create(new GroupData(""));
-                }
-            };
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
             return this;
         }

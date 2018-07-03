@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace WebAddressbookTests
 {
@@ -9,18 +10,20 @@ namespace WebAddressbookTests
         public void GroupModificationTest()
         {
             //preparate
-            int index = 3;
-            app.Groups.CreateByIndex(index);
-            Assert.IsTrue(app.Groups.CheckByIndex(index), "The group has not been created");
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            if (oldGroups.Count == 0)
+            {
+                app.Groups.Create(new GroupData(""));
+            }
 
             //action
             GroupData newData = new GroupData("z");
             newData.Header = null;
             newData.Footer = null;
-            app.Groups.Modify(index, newData);
+            app.Groups.Modify(1, newData);
 
             //varification
-            //Assert.IsTrue(app.Groups.GetByIndex(index).Compare(newData), "The group has not been changed");
+
         }
     }
 }
