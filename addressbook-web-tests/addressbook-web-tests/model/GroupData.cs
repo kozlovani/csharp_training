@@ -42,5 +42,17 @@ namespace WebAddressbookTests
             get { return header; }
             set { header = value; }
         }
+
+        public bool Compare(GroupData group)
+        {
+            if ((this == null &&
+                group == null) ||
+                (this != null &&
+                group != null &&
+                this.Name == group.Name
+                ))
+            { return true; }
+            return false;
+        }
     }
 }

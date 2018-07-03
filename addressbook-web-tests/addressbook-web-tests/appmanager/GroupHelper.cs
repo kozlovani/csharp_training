@@ -52,6 +52,39 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public int GetCount()
+        {
+            manager.Navigator.GoToGroupsPage();
+            return driver.FindElements(By.Name("selected[]")).Count();
+        }
+        public bool CheckByIndex(int index)
+        {
+            var count = GetCount();
+            if (count >= index)
+                return true;
+            else
+                return false;
+        }
+
+        public GroupHelper CreateByIndex(int index)
+        {
+            var count = GetCount();
+            if (count < index)
+            {
+                for (int i = count; i < index; i++)
+                {
+                    Create(new GroupData(""));
+                }
+            };
+            return this;
+        }
+        public GroupData GetByIndex(int index)
+        {
+            GroupData group = null;
+            if (CheckByIndex(index)) group = new GroupData(driver.FindElement(By.XPath("//*[@id='content']/form/span["+index+"]")).Text);
+            return group;
+        }
+
         public GroupHelper ReturnToGroupsPage()
         {
             driver.FindElement(By.LinkText("group page")).Click();

@@ -13,7 +13,7 @@ namespace WebAddressbookTests
             //preparate
             int index = 5;
             app.Contacts.CreateByIndex(index);
-            Assert.IsTrue(app.Contacts.CheckByIndex(index));
+            Assert.IsTrue(app.Contacts.CheckByIndex(index), "The contact has not been created");
 
             //action
             ContactData newData = new ContactData("Update FirstName", "Update LastName");
@@ -21,7 +21,7 @@ namespace WebAddressbookTests
             app.Contacts.Modify(index, newData);
 
             //varification
-            Assert.IsTrue(app.Contacts.GetByIndex(index).Compare(newData));
+            //Assert.IsTrue(app.Contacts.GetByIndex(index).Compare(newData), "The contact has not been changed");
 
         }
     }

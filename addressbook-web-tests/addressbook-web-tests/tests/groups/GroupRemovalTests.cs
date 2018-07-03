@@ -8,7 +8,16 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
-            app.Groups.Remove(5);
+            //preparate
+            int index = 5;
+            app.Groups.CreateByIndex(index);
+            Assert.IsTrue(app.Groups.CheckByIndex(index), "The group has not been created");
+
+            //action
+            app.Groups.Remove(index);
+
+            //varification
+            //Assert.IsTrue(app.Groups.GetCount() == (index - 1), "The group has not been removed");
         }
     }
 }
