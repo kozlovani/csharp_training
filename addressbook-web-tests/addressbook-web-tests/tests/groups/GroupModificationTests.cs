@@ -10,20 +10,24 @@ namespace WebAddressbookTests
         public void GroupModificationTest()
         {
             //preparate
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-            if (oldGroups.Count == 0)
+            if (app.Groups.GetGroupList().Count == 0)
             {
                 app.Groups.Create(new GroupData(""));
             }
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             //action
             GroupData newData = new GroupData("z");
             newData.Header = null;
             newData.Footer = null;
-            app.Groups.Modify(1, newData);
+            app.Groups.Modify(0, newData);
 
             //varification
-
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups[0].Name = newData.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }

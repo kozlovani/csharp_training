@@ -26,8 +26,7 @@ namespace WebAddressbookTests
             ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
             for (int i=0; i< elements.Count; i++)
             {
-                contacts.Add(new ContactData(driver.FindElements(By.XPath("//tr[@name='entry']/td[3]"))[i].Text, driver.FindElements(By.XPath("//tr[@name='entry']/td[2]"))[i].Text));
-                i++;    
+                contacts.Add(new ContactData(driver.FindElements(By.XPath("//tr[@name='entry']/td[3]"))[i].Text, driver.FindElements(By.XPath("//tr[@name='entry']/td[2]"))[i].Text));  
             }
             return contacts;
         }
@@ -35,7 +34,7 @@ namespace WebAddressbookTests
         public ContactHelper Select(int index)
         {
             manager.Navigator.GoToHomePage();
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index+1 + "]")).Click();
             return this;
         }
 

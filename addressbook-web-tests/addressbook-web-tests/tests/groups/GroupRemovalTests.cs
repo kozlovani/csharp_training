@@ -9,19 +9,20 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
-            //preparate
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-            if (oldGroups.Count == 0)
+            //preparate 
+            if (app.Groups.GetGroupList().Count == 0)
             {
                 app.Groups.Create(new GroupData(""));
             }
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             //action
-            app.Groups.Remove(1);
+            app.Groups.Remove(0);
 
             //varification
-            //List<GroupData> newGroups = app.Groups.GetGroupList();
-            //oldGroups.RemoveAt(index - 1);
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups.RemoveAt(0);
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }

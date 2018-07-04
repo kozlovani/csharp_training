@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    public class ContactData
+    public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string firstName;
         private string lastName;
@@ -38,6 +38,44 @@ namespace WebAddressbookTests
         {
             this.firstName = firstName;
             this.lastName = lastName;
+        }
+
+        public bool Equals(ContactData other)
+        {
+            if (object.ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return FirstName == other.FirstName && LastName == other.LastName;
+        }
+
+        public int CompareTo(ContactData other)
+        {
+            if (object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
+            if (FirstName.CompareTo(other.FirstName) == 0)
+            {
+                return LastName.CompareTo(other.LastName);
+            } else 
+            {
+                return FirstName.CompareTo(other.FirstName);
+            } 
+        }
+
+        public override int GetHashCode()
+        {
+            return FirstName.GetHashCode() + LastName.GetHashCode(); // retuen 0 without optimization
+        }
+
+        public override string ToString()
+        {
+            return "FirstName=" + FirstName+", LastName="+LastName;
         }
 
         public string FirstName
@@ -186,27 +224,6 @@ namespace WebAddressbookTests
         {
             get { return notes; }
             set { notes = value; }
-        }
-
-        public bool Compare(ContactData contact)
-        {
-            if ((this == null &&
-                contact == null) ||
-                (this != null && 
-                contact != null && 
-                this.FirstName == contact.FirstName &&
-                this.LastName == contact.LastName
-                /*this.Address == contact.Address &&
-                this.Email == contact.Email &&
-                this.Email2 == contact.Email2 &&
-                this.Email3 == contact.Email3 &&
-                this.Home == contact.Home &&
-                this.Mobile == contact.Mobile &&
-                this.Work == contact.Work &&
-                this.Phone2 == contact.Phone2*/
-                ))
-                { return true; }
-            return false;
         }
     }
 }
