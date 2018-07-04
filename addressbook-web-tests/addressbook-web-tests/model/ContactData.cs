@@ -8,36 +8,11 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstName;
-        private string lastName;
-        private string middleName = "";
-        private string nickName = "";
-        private string photo = "";
-        private string title = "";
-        private string company = "";
-        private string address = "";
-        private string home = "";
-        private string mobile = "";
-        private string work = "";
-        private string fax = "";
-        private string email = "";
-        private string email2 = "";
-        private string email3 = "";
-        private string homePage = "";
-        private string bday = "-";
-        private string bmonth = "-";
-        private string byear = "";
-        private string aday = "-";
-        private string amonth = "-";
-        private string ayear = "";
-        private string address2 = "";
-        private string phone2 = "";
-        private string notes = "";
 
         public ContactData(string firstName, string lastName)
         {
-            this.firstName = firstName;
-            this.lastName = lastName;
+            FirstName = firstName;
+            LastName = lastName;
         }
 
         public bool Equals(ContactData other)
@@ -68,162 +43,67 @@ namespace WebAddressbookTests
             } 
         }
 
-        public override int GetHashCode()
-        {
-            return FirstName.GetHashCode() + LastName.GetHashCode(); // retuen 0 without optimization
-        }
-
         public override string ToString()
         {
             return "FirstName=" + FirstName+", LastName="+LastName;
         }
 
-        public string FirstName
+        public override int GetHashCode()
         {
-            get { return firstName; }
-            set { firstName = value; }
+            var hashCode = 545635260;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FirstName);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LastName);
+            return hashCode;
         }
 
-        public string LastName
-        {
-            get { return lastName; }
-            set { lastName = value; }
-        }
+        public string FirstName { get; set; }
 
-        public string MiddleName
-        {
-            get { return middleName; }
-            set { middleName = value; }
-        }
+        public string LastName { get; set; }
 
-        public string NickName
-        {
-            get { return nickName; }
-            set { nickName = value; }
-        }
+        public string MiddleName { get; set; }
 
-        public string Photo
-        {
-            get { return photo; }
-            set { photo = value; }
-        }
+        public string NickName { get; set; }
 
-        public string Title
-        {
-            get { return title; }
-            set { title = value; }
-        }
+        public string Photo { get; set; }
 
-        public string Company
-        {
-            get { return company; }
-            set { company = value; }
-        }
+        public string Title { get; set; }
 
-        public string Address
-        {
-            get { return address; }
-            set { address = value; }
-        }
+        public string Company { get; set; }
 
-        public string Home
-        {
-            get { return home; }
-            set { home = value; }
-        }
+        public string Address { get; set; }
 
-        public string Mobile
-        {
-            get { return mobile; }
-            set { mobile = value; }
-        }
+        public string Home { get; set; }
 
-        public string Work
-        {
-            get { return work; }
-            set { work = value; }
-        }
-        public string Fax
-        {
-            get { return fax; }
-            set { fax = value; }
-        }
+        public string Mobile { get; set; }
 
-        public string Email
-        {
-            get { return email; }
-            set { email = value; }
-        }
+        public string Work { get; set; }
+        public string Fax { get; set; }
 
-        public string Email2
-        {
-            get { return email2; }
-            set { email2 = value; }
-        }
+        public string Email { get; set; }
 
-        public string Email3
-        {
-            get { return email3; }
-            set { email3 = value; }
-        }
-        public string HomePage
-        {
-            get { return homePage; }
-            set { homePage = value; }
-        }
+        public string Email2 { get; set; }
 
-        public string BDay
-        {
-            get { return bday; }
-            set { bday = value; }
-        }
+        public string Email3 { get; set; }
+        public string HomePage { get; set; }
 
-        public string BMonth
-        {
-            get { return bmonth; }
-            set { bmonth = value; }
-        }
+        public string BDay { get; set; }
 
-        public string BYear
-        {
-            get { return byear; }
-            set { byear = value; }
-        }
+        public string BMonth { get; set; }
 
-        public string ADay
-        {
-            get { return aday; }
-            set { aday = value; }
-        }
+        public string BYear { get; set; }
 
-        public string AMonth
-        {
-            get { return amonth; }
-            set { amonth = value; }
-        }
+        public string ADay { get; set; }
 
-        public string AYear
-        {
-            get { return ayear; }
-            set { ayear = value; }
-        }
+        public string AMonth { get; set; }
 
-        public string Address2
-        {
-            get { return address2; }
-            set { address2 = value; }
-        }
+        public string AYear { get; set; }
 
-        public string Phone2
-        {
-            get { return phone2; }
-            set { phone2 = value; }
-        }
+        public string Address2 { get; set; }
 
-        public string Notes
-        {
-            get { return notes; }
-            set { notes = value; }
-        }
+        public string Phone2 { get; set; }
+
+        public string Notes { get; set; }
+
+        public string Id { get; set; }
     }
 }
