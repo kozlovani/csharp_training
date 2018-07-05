@@ -8,7 +8,7 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-
+        private string allPhones;
         public ContactData(string firstName, string lastName)
         {
             FirstName = firstName;
@@ -50,10 +50,7 @@ namespace WebAddressbookTests
 
         public override int GetHashCode()
         {
-            var hashCode = 545635260;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FirstName);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LastName);
-            return hashCode;
+            return (FirstName+ " "+LastName).GetHashCode();
         }
 
         public string FirstName { get; set; }
@@ -105,5 +102,27 @@ namespace WebAddressbookTests
         public string Notes { get; set; }
 
         public string Id { get; set; }
+        public string AllPhones { get
+            {
+                if (allPhones != null)
+                {
+                    return allPhones;
+                } else
+                {
+                    return (CleanUp(Home) + CleanUp(Mobile) + CleanUp(Work)).Trim();
+                }
+            }
+            set { allPhones = value; } }
+
+        private string CleanUp(string phone)
+        {
+            if (phone == null || phone =="")
+            {
+                return "";
+            } else
+            {
+                return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+            }
+        }
     }
 }
