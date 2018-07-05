@@ -6,16 +6,26 @@ namespace WebAddressbookTests
     [TestFixture]
     public class GroupCreationTests : AuthTestBase
     {
-        [Test]
-        public void GroupCreationTest()
+        public static IEnumerable<GroupData> RandomGroupDataProvider()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            for (int i=0; i<5; i++)
+            {
+                groups.Add(new GroupData(GenerateRandomString(30))
+                {
+                    Header = GenerateRandomString(100),
+                    Footer = GenerateRandomString(100)
+                });
+            }
+            return groups;
+        }
+        [Test, TestCaseSource("RandomGroupDataProvider")]
+        public void GroupCreationTest(GroupData group)
         {
             //preparate
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             //action
-            GroupData group = new GroupData("a");
-            group.Header = "b";
-            group.Footer = "c";
             app.Groups.Create(group);
 
             //varification

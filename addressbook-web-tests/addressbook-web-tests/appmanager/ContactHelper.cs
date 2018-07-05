@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using System.Collections.Generic;
 using System;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
@@ -169,5 +170,11 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public int GetNumberOfSearchResalts()
+        {
+            string text = driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
+        }
     }
 }
