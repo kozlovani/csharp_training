@@ -11,6 +11,7 @@ namespace WebAddressbookTests
     {
         private string allPhones;
         private string allEmails;
+        private string allData;
         public ContactData(string firstName, string lastName)
         {
             FirstName = firstName;
@@ -112,7 +113,7 @@ namespace WebAddressbookTests
                 } else
                 {
                     
-                    return (CleanUp(Home) + CleanUp(Mobile) + CleanUp(Work)).Trim();
+                    return (CleanUp(Home) + CleanUp(Mobile) + CleanUp(Work) + CleanUp(Phone2)).Trim();
                 }
             }
             set { allPhones = value; } }
@@ -131,6 +132,70 @@ namespace WebAddressbookTests
                 }
             }
             set { allEmails = value; }
+        }
+
+        public string AllData
+        {
+            get
+            {
+                if (allData != null)
+                {
+                    return allData;
+                }
+                else
+                {
+                    return (AddEnter(FirstName+ " "+ MiddleName + " "+ LastName) +
+                        AddEnter(NickName) +
+                        AddEnter(Title) + 
+                        AddEnter(Company) + 
+                        AddEnter(Address) +
+                        AddEnter(AddTextBefore("H: ", Home)) +
+                        AddEnter(AddTextBefore("M: ", Mobile)) +
+                        AddEnter(AddTextBefore("W: ", Work)) +
+                        AddEnter(AddTextBefore("F: ", Fax)) +
+                        AddEnter(Email) +
+                        AddEnter(Email2) +
+                        AddEnter(Email3) +
+                        AddEnter(AddTextBefore("Homepage:\r\n", HomePage)) +
+                        AddEnter(AddTextBefore("Birthday ", getDate(BDay,BMonth,BYear))) +
+                        AddEnter(AddTextBefore("Anniversary ", getDate(ADay, AMonth, AYear))) +
+                        AddEnter(Address2) +
+                        AddEnter(AddTextBefore("P: ",Phone2)) +
+                        AddEnter(Notes)
+                        ).Trim();
+                }
+            }
+            set { allData = value; }
+        }
+
+        private string getDate(string day, string month, string year)
+        {
+            string date = "";
+            if (!(day == null || day == "" || day == "-"))
+            {
+                date = day + ".";
+            }
+            if (!(month == null || month == "" || month == "-"))
+            {
+                date = date + " " + month;
+            }
+            if (!(year == null || year == "" || year == "-"))
+            {
+                date = date + " " + year;
+            }
+            return date;
+        }
+
+        private string AddTextBefore(string text, string field)
+        {
+            if (field == null || field == "")
+            {
+                return "";
+            }
+            else
+            {
+                return text+field;
+            }
         }
 
         private string CleanUp(string phone)
