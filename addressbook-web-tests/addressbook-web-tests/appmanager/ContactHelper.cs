@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using System.Text.RegularExpressions;
+using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
@@ -22,6 +23,53 @@ namespace WebAddressbookTests
             {
                 AllData = text
             };
+        }
+
+        public ContactHelper Modify(ContactData contact)
+        {
+            Select(contact.Id);
+            FillContactForm(contact);
+            SubmitContactModification();
+            return this;
+        }
+
+        public ContactHelper Remove(ContactData toBeRemoved)
+        {
+            Select(toBeRemoved.Id);
+            SubmitContactRemoval();
+            this.driver.SwitchTo().Alert().Accept();
+            return this;
+        }
+
+        public void AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter();
+            Select(contact.Id);
+            SelectGroupToAdd(group.Name);
+            SubmitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        public void SubmitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        public void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        public void Select(string id)
+        {
+            driver.FindElement(By.Id(id)).Click();
+        }
+
+        public void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
         }
 
         public ContactData GetContactInformationFromTable(int index)
