@@ -91,6 +91,7 @@
     <Compile Include="tests\contacts\ContactRemovalTests.cs" />
     <Compile Include="tests\contacts\ContactSearchTests.cs" />
     <Compile Include="tests\contacts\ContactTestBase.cs" />
+    <Compile Include="tests\groups\RemovingContactsFromGroupTests.cs" />
     <Compile Include="tests\groups\AddingContactsToGroupTests.cs" />
     <Compile Include="tests\groups\GroupModificationTests.cs" />
     <Compile Include="model\AccountData.cs" />

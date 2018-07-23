@@ -25,6 +25,7 @@ namespace WebAddressbookTests
             };
         }
 
+
         public ContactHelper Modify(ContactData contact)
         {
             Select(contact.Id);
@@ -52,6 +53,22 @@ namespace WebAddressbookTests
                 .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
         }
 
+
+        public void RemoveContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            SetGroupFilter(group.Name);
+            SelectByCheckbox(contact.Id);
+            SubmitRemovingContactFromGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        public void SubmitRemovingContactFromGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();    
+        }
+
         private void SelectByCheckbox(string id)
         {
             driver.FindElement(By.Id(id)).Click();
@@ -59,7 +76,7 @@ namespace WebAddressbookTests
 
         public void SubmitAddingContactToGroup()
         {
-            driver.FindElement(By.Name("add")).Click();
+            
         }
 
         public void SelectGroupToAdd(string name)
@@ -76,6 +93,10 @@ namespace WebAddressbookTests
         public void ClearGroupFilter()
         {
             new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+        public void SetGroupFilter(string value)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(value);
         }
 
         public ContactData GetContactInformationFromTable(int index)
