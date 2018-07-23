@@ -38,7 +38,6 @@ namespace WebAddressbookTests
         {
             Select(toBeRemoved.Id);
             SubmitContactRemoval();
-            //this.driver.SwitchTo().Alert().Accept();
             return this;
         }
 
@@ -76,7 +75,7 @@ namespace WebAddressbookTests
 
         public void SubmitAddingContactToGroup()
         {
-            
+            driver.FindElement(By.Name("add")).Click();
         }
 
         public void SelectGroupToAdd(string name)
