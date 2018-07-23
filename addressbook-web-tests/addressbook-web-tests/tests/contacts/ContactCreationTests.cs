@@ -75,7 +75,7 @@ namespace WebAddressbookTests
 
         }
 
-        [Test, TestCaseSource("ContactDataFromXmlFile")]
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void ContactCreationTest(ContactData contact)
         {
             List<ContactData> oldContacts = ContactData.GetAll();

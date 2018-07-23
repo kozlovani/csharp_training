@@ -37,7 +37,7 @@ namespace WebAddressbookTests
         {
             Select(toBeRemoved.Id);
             SubmitContactRemoval();
-            this.driver.SwitchTo().Alert().Accept();
+            //this.driver.SwitchTo().Alert().Accept();
             return this;
         }
 
@@ -45,11 +45,16 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GoToHomePage();
             ClearGroupFilter();
-            Select(contact.Id);
+            SelectByCheckbox(contact.Id);
             SelectGroupToAdd(group.Name);
             SubmitAddingContactToGroup();
             new WebDriverWait(driver, TimeSpan.FromSeconds(10))
                 .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        private void SelectByCheckbox(string id)
+        {
+            driver.FindElement(By.Id(id)).Click();
         }
 
         public void SubmitAddingContactToGroup()
@@ -64,7 +69,8 @@ namespace WebAddressbookTests
 
         public void Select(string id)
         {
-            driver.FindElement(By.Id(id)).Click();
+            driver.FindElement(By.CssSelector("a[href= 'edit.php?id=" + id+"']")).Click();
+            
         }
 
         public void ClearGroupFilter()
