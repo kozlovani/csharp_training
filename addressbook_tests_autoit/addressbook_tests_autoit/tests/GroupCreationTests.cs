@@ -8,7 +8,7 @@ namespace addressbook_tests_autoit
     [TestFixture]
     public class GroupCreationTests : TestBase
     {
-        [TestMethod]
+        [Test]
         public void GroupCreationTest()
         {
             List<GroupData> oldGroups = app.Groups.GetGroupList();
