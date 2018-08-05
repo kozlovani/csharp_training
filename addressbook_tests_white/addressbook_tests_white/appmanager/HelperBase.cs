@@ -1,7 +1,6 @@
 ﻿
-using AutoItX3Lib;
 
-namespace addressbook_tests_autoit
+namespace addressbook_tests_white
 {
     public class HelperBase
     {

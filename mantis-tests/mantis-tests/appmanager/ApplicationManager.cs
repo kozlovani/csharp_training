@@ -13,12 +13,17 @@ namespace mantis_tests
         protected IWebDriver driver;
         protected string baseURL;
 
+        public RegistrationHelper Registration { get; set; }
+        public FtpHelper FtpHelper { get; set; }
+
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
         private ApplicationManager()
         {
             Start();
             baseURL = "http://localhost:8080/";
+            Registration = new RegistrationHelper(this);
+            FtpHelper = new FtpHelper(this);
         }
 
         ~ApplicationManager()
@@ -37,7 +42,7 @@ namespace mantis_tests
         {
             if (! app.IsValueCreated) {
                 ApplicationManager newInstance = new ApplicationManager();
-                newInstance.Navigator.GoToHomePage();
+                newInstance.driver.Url = "http://localhost:8080/mantisbt-2.16.0/login_page.php";
                 app.Value = newInstance;
             }
             return app.Value;
