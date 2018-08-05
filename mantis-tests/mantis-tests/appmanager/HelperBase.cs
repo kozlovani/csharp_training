@@ -7,12 +7,14 @@ namespace mantis_tests
     {
         protected IWebDriver driver;
         protected ApplicationManager manager;
+        protected string baseUrl;
 
 
         public HelperBase(ApplicationManager manager)
         {
             this.manager = manager;
             this.driver = manager.Driver;
+            this.baseUrl = manager.baseURL;
         }
 
         public void Type(By locator, string text)

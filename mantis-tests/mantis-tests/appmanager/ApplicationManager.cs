@@ -11,19 +11,25 @@ namespace mantis_tests
     {
 
         protected IWebDriver driver;
-        protected string baseURL;
+        public string baseURL;
 
         public RegistrationHelper Registration { get; set; }
         public FtpHelper FtpHelper { get; set; }
+        public LoginHelper Auth { get; set; }
+        public ManagmentMenuHelper Navigator { get; set; }
+        public ProjectManagementHelper Projects { get; set; }
 
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
         private ApplicationManager()
         {
             Start();
-            baseURL = "http://localhost:8080/";
+            baseURL = "http://localhost:8080/mantisbt-2.16.0";
             Registration = new RegistrationHelper(this);
             FtpHelper = new FtpHelper(this);
+            Auth = new LoginHelper(this);
+            Navigator = new ManagmentMenuHelper(this);
+            Projects = new ProjectManagementHelper(this);
         }
 
         ~ApplicationManager()
