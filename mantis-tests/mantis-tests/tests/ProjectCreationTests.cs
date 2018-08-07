@@ -13,7 +13,12 @@ namespace mantis_tests
         public void AccountProjectCreationTest()
         {
             //preparate
-            List<ProjectData> oldGroups = app.Projects.GetProjectList();
+            AccountData account = new AccountData()
+            {
+                Name = "administrator",
+                Password = "root"
+            };
+            List<ProjectData> oldGroups = app.API.GetProjectList(account);
 
             //action
             Random rnd = new Random();
@@ -24,7 +29,7 @@ namespace mantis_tests
             app.Projects.AddProject(project);
         
             //varification  
-            List<ProjectData> newGroups = app.Projects.GetProjectList();
+            List<ProjectData> newGroups = app.API.GetProjectList(account);
             Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
             oldGroups.Add(project);
             oldGroups.Sort();

@@ -53,6 +53,7 @@ namespace mantis_tests
 
         public void AddProject(ProjectData project)
         {
+            manager.Navigator.GotoManageProjectPage();
             SubmitCreateProjectButton();
             FillProjectForm(project);
             SubmitAddProjectButton();
